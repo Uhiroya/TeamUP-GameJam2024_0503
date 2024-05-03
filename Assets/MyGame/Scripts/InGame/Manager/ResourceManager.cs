@@ -28,7 +28,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 
     private void OnTouchGetArea(Collider col)
     {
-        if (col.transform.parent.TryGetComponent<PrizeController>(out var prize))
+        if (col.transform.TryGetComponent<PrizeController>(out var prize))
         {
             _currentCoin.Value += prize.PrizeData.Coin;
         }
