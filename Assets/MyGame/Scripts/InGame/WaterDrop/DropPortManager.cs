@@ -1,8 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaunchPortManager : MonoBehaviour
+[Serializable]
+public class Drop
+{
+    [SerializeField, Header("栄養剤で成長完了にかかる時間")] public float ReinForceTime = 10f;
+    [SerializeField, Header("与える成長量、+Size")] public float ReinForceAmount =  0.05f;
+}
+public class DropPortManager : SingletonMonoBehavior<DropPortManager>
 {
     
     [SerializeField ,Header("発射台X移動")] private Transform _launchPort;
@@ -11,9 +18,13 @@ public class LaunchPortManager : MonoBehaviour
     [SerializeField　,Header("垂らす液体")] private GameObject _dropPrefab;
     [SerializeField ,Header("移動スピード")] private float _moveSpeed;
     [SerializeField, Header("移動制限")] private Vector3 _limit;
+
+    [Header("現在の栄養剤によって変えたいデバック用")] 
+    [SerializeField] public Drop _drop;
     public void WaterDrop()
     {
-        Instantiate(_dropPrefab , _dropPort.position , Quaternion.identity);
+        var obj = Instantiate(_dropPrefab , _dropPort.position , Quaternion.identity);
+        obj.GetComponent<DropController>().SetDrop(_drop);
     }
 
     public void MoveLaunchPort(Vector3 input)

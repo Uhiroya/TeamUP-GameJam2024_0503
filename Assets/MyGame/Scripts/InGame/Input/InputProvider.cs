@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.OnScreen;
 
 public class InputProvider : SingletonMonoBehavior<InputProvider>
 {
-    [SerializeField] private LaunchPortManager _launchPortManager;
+    [SerializeField] private DropPortManager _dropPortManager;
     [SerializeField] private RectTransform _joyStick;
     private Vector3 _defaultJoyStickPosition;
     private Vector3 _currentInput;
@@ -25,7 +25,7 @@ public class InputProvider : SingletonMonoBehavior<InputProvider>
         //Debug.Log(_defaultJoyStickPosition);
         if (_currentInput.magnitude > 0.05f)
         {
-            _launchPortManager.MoveLaunchPort(_currentInput);
+            _dropPortManager.MoveLaunchPort(_currentInput);
         }
     }
 }

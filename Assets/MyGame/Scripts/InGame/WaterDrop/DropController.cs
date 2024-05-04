@@ -1,21 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DropController : MonoBehaviour
 {
-    [Header("与える成長量、+Size")] public float GrowthAmount =  0.05f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Drop _drop;
+    public float ReinForceAmount => _drop.ReinForceAmount;
+    public float ReinForceTime => _drop.ReinForceTime;
 
-    // Update is called once per frame
-    void Update()
+    public void SetDrop(Drop drop)
     {
-        
+        _drop = drop;
     }
 
     private void OnTriggerEnter(Collider other)
