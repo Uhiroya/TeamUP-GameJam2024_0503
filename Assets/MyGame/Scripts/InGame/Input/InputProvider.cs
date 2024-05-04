@@ -20,7 +20,7 @@ public class InputProvider : SingletonMonoBehavior<InputProvider>
     {
         
         _currentInput = (_joyStick.position - _defaultJoyStickPosition) / _joyStick.rect.width;
-        Debug.Log(_currentInput);
+        //Debug.Log(_currentInput);
         //Debug.Log(_joyStick.position);
         //Debug.Log(_defaultJoyStickPosition);
         if (_currentInput.magnitude > 0.05f)

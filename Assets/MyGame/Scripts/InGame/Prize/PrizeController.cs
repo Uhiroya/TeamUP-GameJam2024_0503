@@ -29,12 +29,12 @@ public class PrizeController : MonoBehaviour
         var rigidbody = GetComponentInChildren<Rigidbody>();
         _isSpawn = true;
         rigidbody.isKinematic = true;
-        _parent.localScale = Vector3.one * _prizeManager.SpawnScale;
+        _parent.localScale = Vector3.one * _prizeManager.SpawnStartScale;
 
         var sequence = DOTween.Sequence();
-        sequence.Append(_parent.DOScale(Vector3.one, _prizeManager.SpawnTime));
-        sequence.Join(_parent.DOBlendableMoveBy(Vector3.back * _prizeManager.SpawnFrontPower, _prizeManager.SpawnTime));
-        sequence.Join(_parent.DOBlendableMoveBy(Vector3.up * _prizeManager.SpawnUpPower, _prizeManager.SpawnTime));
+        sequence.Append(_parent.DOScale(Vector3.one *  _prizeManager.CurrentStatus.SpawnEndScale, _prizeManager.CurrentStatus.SpawnTime));
+        sequence.Join(_parent.DOBlendableMoveBy(Vector3.back * _prizeManager.SpawnFrontPower, _prizeManager.CurrentStatus.SpawnTime));
+        sequence.Join(_parent.DOBlendableMoveBy(Vector3.up * _prizeManager.SpawnUpPower, _prizeManager.CurrentStatus.SpawnTime));
 
         await sequence;
 
@@ -50,7 +50,15 @@ public class PrizeController : MonoBehaviour
         {
             _isGrowth = true;
             var growthScale =  other.gameObject.GetComponent<DropController>().GrowthAmount;
-            await _parent.DOScale(_parent.localScale + Vector3.one * growthScale, _prizeManager.GrowthTime);
+            if (_parent.localScale.x + growthScale < _prizeManager.CurrentStatus.GrowthMaxSize)
+            {
+                await _parent.DOScale(_parent.localScale + Vector3.one * growthScale, _prizeManager.CurrentStatus.ReinForceTime);
+            }
+            else
+            {
+                await _parent.DOScale( Vector3.one * _prizeManager.CurrentStatus.GrowthMaxSize, _prizeManager.CurrentStatus.ReinForceTime);
+                print("最大サイズになりました");
+            }
             _isGrowth = false;
         }
     }
