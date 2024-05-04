@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Drop
   - Prize
+  - Floor
   layers:
   - Default
   - TransparentFX
