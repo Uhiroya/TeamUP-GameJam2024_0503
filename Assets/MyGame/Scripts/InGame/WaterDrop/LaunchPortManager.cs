@@ -5,7 +5,8 @@ using UnityEngine;
 public class LaunchPortManager : MonoBehaviour
 {
     
-    [SerializeField ,Header("発射台")] private Transform _launchPort;
+    [SerializeField ,Header("発射台X移動")] private Transform _launchPort;
+    [SerializeField ,Header("発射台Z移動")] private Transform _launchRail;
     [SerializeField, Header("発射口")] private Transform _dropPort;
     [SerializeField　,Header("垂らす液体")] private GameObject _dropPrefab;
     [SerializeField ,Header("移動スピード")] private float _moveSpeed;
@@ -18,12 +19,13 @@ public class LaunchPortManager : MonoBehaviour
     public void MoveLaunchPort(Vector3 input)
     {
         //移動制限
-        var position = _launchPort.position;
-        var newPosition = position + input * _moveSpeed;
-        var newPosX = Mathf.Clamp(newPosition.x, -_limit.x, _limit.x);
-        var newPosZ = Mathf.Clamp(newPosition.z, -_limit.z, _limit.z);
-        position = new Vector3(newPosX, position.y, newPosZ);
+        var portPos = _launchPort.position;
+        var railPos = _launchRail.position;
         
-        _launchPort.position = position;
+        var newPosX = Mathf.Clamp( portPos.x + input.x * _moveSpeed, -_limit.x, _limit.x);
+        var newPosZ = Mathf.Clamp( railPos.z + input.z * _moveSpeed, -_limit.z, _limit.z);
+        
+        _launchPort.position = new Vector3(newPosX , portPos.y , portPos.z);
+        _launchRail.position = new Vector3(railPos.x , railPos.y , newPosZ);
     }
 }
