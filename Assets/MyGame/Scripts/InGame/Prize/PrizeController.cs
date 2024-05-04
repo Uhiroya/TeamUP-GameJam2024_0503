@@ -13,16 +13,29 @@ public class PrizeController : MonoBehaviour
     private PrizeManager _prizeManager;
     private bool _isSpawn = false;
     private bool _isGrowth = false;
+
     private float _growthTime;
 
-    // Instantiateで呼ぶとUpdate回る前にStart呼ばれないってまじ？
+    // Instantiateで呼ぶとUpdate回る前にStart呼ばれない
     private void Start()
     {
         _parent = transform.parent;
         _prizeManager = PrizeManager.Instance;
     }
 
-    public async void Spawn()
+    private void Update()
+    {
+        if (_isSpawn)
+        {
+            var newSize = _parent.localScale.x + Time.deltaTime * _prizeManager.CurrentStatus.GrowthRate;
+            if (newSize < _prizeManager.CurrentStatus.GrowthMaxSize)
+            {
+                _parent.localScale = Vector3.one * newSize;
+            }
+        }
+    }
+    
+    public async UniTask Spawn()
     {
         _parent = transform.parent;
         _prizeManager = PrizeManager.Instance;
@@ -44,20 +57,18 @@ public class PrizeController : MonoBehaviour
 
     private async void OnTriggerEnter(Collider other)
     {
-        //スポーン中または成長中は処理を行わない。
-        if (_isSpawn || _isGrowth) return;
-        if (other.CompareTag("Drop"))
+
+        if (!_isSpawn) return;
+        if(other.gameObject.TryGetComponent<DropController>(out var drop))
         {
             _isGrowth = true;
-            var growthScale =  other.gameObject.GetComponent<DropController>().GrowthAmount;
-            if (_parent.localScale.x + growthScale < _prizeManager.CurrentStatus.GrowthMaxSize)
+            if (_parent.localScale.x + drop.ReinForceAmount < _prizeManager.CurrentStatus.GrowthMaxSize)
             {
-                await _parent.DOScale(_parent.localScale + Vector3.one * growthScale, _prizeManager.CurrentStatus.ReinForceTime);
+                await _parent.DOScale(_parent.localScale + Vector3.one * drop.ReinForceAmount, drop.ReinForceTime);
             }
             else
             {
-                await _parent.DOScale( Vector3.one * _prizeManager.CurrentStatus.GrowthMaxSize, _prizeManager.CurrentStatus.ReinForceTime);
-                print("最大サイズになりました");
+                await _parent.DOScale( Vector3.one * _prizeManager.CurrentStatus.GrowthMaxSize, drop.ReinForceTime);
             }
             _isGrowth = false;
         }
