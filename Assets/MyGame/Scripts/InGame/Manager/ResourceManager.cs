@@ -31,6 +31,8 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
         if (col.transform.TryGetComponent<PrizeController>(out var prize))
         {
             _currentCoin.Value += prize.PrizeData.Coin;
+            Destroy(col.transform.parent.gameObject);
+            return;
         }
         Destroy(col.gameObject);
     }
