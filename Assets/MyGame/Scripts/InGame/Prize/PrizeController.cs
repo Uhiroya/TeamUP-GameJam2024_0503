@@ -62,13 +62,13 @@ public class PrizeController : MonoBehaviour
         if(other.gameObject.TryGetComponent<DropController>(out var drop))
         {
             _isGrowth = true;
-            if (_parent.localScale.x + drop.ReinForceAmount < _prizeManager.CurrentStatus.GrowthMaxSize)
+            if (_parent.localScale.x + DropPortManager.Instance.CurrentStatus.ReinForceAmount < _prizeManager.CurrentStatus.GrowthMaxSize)
             {
-                await _parent.DOScale(_parent.localScale + Vector3.one * drop.ReinForceAmount, drop.ReinForceTime);
+                await _parent.DOScale(_parent.localScale + Vector3.one * DropPortManager.Instance.CurrentStatus.ReinForceAmount, DropPortManager.Instance.CurrentStatus.ReinForceTime);
             }
             else
             {
-                await _parent.DOScale( Vector3.one * _prizeManager.CurrentStatus.GrowthMaxSize, drop.ReinForceTime);
+                await _parent.DOScale( Vector3.one * _prizeManager.CurrentStatus.GrowthMaxSize, DropPortManager.Instance.CurrentStatus.ReinForceTime);
             }
             _isGrowth = false;
         }
