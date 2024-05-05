@@ -45,48 +45,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelUpInfos:
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
+  - LevelUpLimit: 6
+    BasePrice: 300
+    PriceCompensation: 2
+    IncreasedValue: -0.5
+  - LevelUpLimit: 3
+    BasePrice: 3000
+    PriceCompensation: 1
+    IncreasedValue: 1
+  - LevelUpLimit: 6
+    BasePrice: 500
+    PriceCompensation: 1
+    IncreasedValue: -0.5
+  - LevelUpLimit: 6
+    BasePrice: 1500
+    PriceCompensation: 1
     IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
+  - LevelUpLimit: 6
+    BasePrice: 1000
+    PriceCompensation: 1
     IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
+  - LevelUpLimit: 6
+    BasePrice: 750
+    PriceCompensation: 2
     IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
+  - LevelUpLimit: 6
+    BasePrice: 50
+    PriceCompensation: 2
     IncreasedValue: 0.1
-  - LevelUpLimit: 5
+  - LevelUpLimit: 6
     BasePrice: 100
-    priceCompensation: 1
+    PriceCompensation: 1
     IncreasedValue: 0.1
-  - LevelUpLimit: 5
+  - LevelUpLimit: 6
+    BasePrice: 500
+    PriceCompensation: 2
+    IncreasedValue: 0.1
+  - LevelUpLimit: 6
     BasePrice: 100
-    priceCompensation: 1
-    IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
-    IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
-    IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
-    IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
-    IncreasedValue: 0.1
-  - LevelUpLimit: 5
-    BasePrice: 100
-    priceCompensation: 1
-    IncreasedValue: 0.1
-  _pricePower: 1.15
+    PriceCompensation: 2
+    IncreasedValue: 0.2
+  _pricePower: 1.5

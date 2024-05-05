@@ -9,9 +9,9 @@ namespace MyGame.Scripts.InGame.UI
 {
     enum LevelUpType
     {
-        培養強化 = 0,
-        成長室強化 = 1,
-        栄養剤強化 = 2,
+        きのこ = 0,
+        きかい = 1,
+        えいよう = 2,
     }
 
     [Serializable]

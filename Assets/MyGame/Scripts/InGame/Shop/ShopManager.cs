@@ -4,22 +4,35 @@ using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
 
+public enum ShopType2
+{
+    はえやすさ= 0,
+    はえるりょう = 1,
+     はえるはやさ= 2 ,
+    しょきサイズ = 3,
 
+    せいちょう = 4 ,
+    さいだいサイズ = 5,
+
+    そくど = 6,
+    ききやすさ = 7,
+    つよさ= 8,
+    おおきさ = 9,
+} 
 public enum ShopType
 {
-    発芽間隔 = 0,
-    発芽個数 = 1,
-    成菌にかかる時間 = 2 ,
-    発芽サイズ = 3,
+    はえやすさ = 0,
+    はえるりょう = 1,
+    はえるはやさ = 2 ,
+    しょきサイズ = 3,
     
-    毎秒の成長量 = 4 ,
-    成長可能サイズ = 5,
+    せいちょう = 4 ,
+    さいだいサイズ = 5,
     
-    栄養剤クールダウン = 6,
-    栄養を吸収する時間 = 7,
-    与える成長量 = 8,
-    滴の大きさ = 9,
-    //滴の個数 = 10,
+    そくど = 6,
+    ききやすさ = 7,
+    つよさ = 8,
+    おおきさ = 9,
 
 }
 
@@ -79,42 +92,42 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
         var value = _levelUpInfos[(int)shopType].IncreasedValue;
         switch (shopType)
         {
-            case ShopType.発芽間隔:
+            case ShopType.はえやすさ:
                 PrizeManager.Instance.CurrentStatus.SpawnCoolTime += value;
                 break;
-            case ShopType.発芽個数:
+            case ShopType.はえるりょう:
                 PrizeManager.Instance.CurrentStatus.SpawnCount += (int)value;
                 break;
-            case ShopType.成菌にかかる時間:
+            case ShopType.はえるはやさ:
                 PrizeManager.Instance.CurrentStatus.SpawnTime += value;
                 break;
-            case ShopType.発芽サイズ:
+            case ShopType.しょきサイズ:
                 PrizeManager.Instance.CurrentStatus.SpawnEndScale += value;
                 break;
-            case ShopType.毎秒の成長量:
+            case ShopType.せいちょう:
                 PrizeManager.Instance.CurrentStatus.GrowthRate += value;
                 break;
-            case ShopType.成長可能サイズ:
+            case ShopType.さいだいサイズ:
                 PrizeManager.Instance.CurrentStatus.GrowthMaxSize += value;
                 break;
-            case ShopType.栄養剤クールダウン:
+            case ShopType.そくど:
                 DropPortManager.Instance.CurrentStatus.SupplementCoolTime += value;
                 break;
-            case ShopType.滴の大きさ:
+            case ShopType.おおきさ:
                 DropPortManager.Instance.CurrentStatus.SupplementSize += value;
                 break;
             // case ShopType.滴の個数:
             //     DropPortManager.Instance.CurrentStatus.SupplementCount += value;
             //     break;
-            case ShopType.栄養を吸収する時間:
+            case ShopType.ききやすさ:
                 DropPortManager.Instance.CurrentStatus.ReinForceTime += value;
                 break;
-            case ShopType.与える成長量:
+            case ShopType.つよさ:
                 DropPortManager.Instance.CurrentStatus.ReinForceAmount += value;
                 break;
         }
-        _currentShopLevel[shopType]++;
         ResourceManager.Instance.CurrentCoin.Value -= LevelUpPrice(shopType);
+        _currentShopLevel[shopType]++;
         return _currentShopLevel[shopType] + 1;
     }
 
@@ -123,37 +136,37 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
         string value = "";
         switch (shopType)
         {
-            case ShopType.発芽間隔:
+            case ShopType.はえやすさ:
                 value = PrizeManager.Instance.CurrentStatus.SpawnCoolTime.ToString("0.0"); 
                 break;
-            case ShopType.発芽個数:
+            case ShopType.はえるりょう:
                 value = PrizeManager.Instance.CurrentStatus.SpawnCount.ToString("0"); 
                 break;
-            case ShopType.成菌にかかる時間:
+            case ShopType.はえるはやさ:
                 value = PrizeManager.Instance.CurrentStatus.SpawnTime.ToString("0.0"); 
                 break;
-            case ShopType.発芽サイズ:
+            case ShopType.しょきサイズ:
                 value = PrizeManager.Instance.CurrentStatus.SpawnEndScale.ToString("0.0"); 
                 break;
-            case ShopType.毎秒の成長量:
+            case ShopType.せいちょう:
                 value = PrizeManager.Instance.CurrentStatus.GrowthRate.ToString("0.0"); 
                 break;
-            case ShopType.成長可能サイズ:
+            case ShopType.さいだいサイズ:
                 value = PrizeManager.Instance.CurrentStatus.GrowthMaxSize.ToString("0.0"); 
                 break;
-            case ShopType.栄養剤クールダウン:
+            case ShopType.そくど:
                 value = DropPortManager.Instance.CurrentStatus.SupplementCoolTime.ToString("0.0"); 
                 break;
-            case ShopType.滴の大きさ:
+            case ShopType.おおきさ:
                 value = DropPortManager.Instance.CurrentStatus.SupplementSize.ToString("0.0"); 
                 break;
             // case ShopType.滴の個数:
             //     value = DropPortManager.Instance.CurrentStatus.SupplementCount.ToString("0.0"); 
             //     break;
-            case ShopType.栄養を吸収する時間:
+            case ShopType.ききやすさ:
                 value = DropPortManager.Instance.CurrentStatus.ReinForceTime.ToString("0.0"); 
                 break;
-            case ShopType.与える成長量:
+            case ShopType.つよさ:
                 value = DropPortManager.Instance.CurrentStatus.ReinForceAmount.ToString("0.0"); 
                 break;
         }
