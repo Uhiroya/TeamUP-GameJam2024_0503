@@ -16,7 +16,7 @@ public class PrizeManagerStatus
     [SerializeField, Header("発芽個数")] public int SpawnCount;
     [SerializeField, Header("成菌にかかる時間　(発芽クールタイム以下にはしちゃだめ)")] public float SpawnTime = 5f;
     [SerializeField, Header("発芽サイズ")] public float SpawnEndScale = 0.5f;
-    [SerializeField, Header("成長量毎秒")] public float GrowthRate = 0.01f;
+    [SerializeField, Header("毎秒の成長量")] public float GrowthRate = 0.01f;
     [SerializeField, Header("成長可能サイズ")] public float GrowthMaxSize = 1.2f;
 
     public PrizeManagerStatus(PrizeManagerStatus status)

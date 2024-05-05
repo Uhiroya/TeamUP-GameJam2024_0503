@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3052510659304228903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2359330200080639755}
+  - component: {fileID: 5314006155652141638}
+  m_Layer: 0
+  m_Name: PrizeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2359330200080639755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052510659304228903}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5314006155652141638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052510659304228903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2883cb43d6c168b4fb65b14ddf864137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prize: {fileID: 7702807411868105402, guid: bf9eeb6e404ba8a4083bbaf8b4b86cab, type: 3}
+  _spawnPositionLeft: {fileID: 0}
+  _spawnPositionRight: {fileID: 0}
+  SpawnFrontPower: 1
+  SpawnUpPower: 0.5
+  SpawnStartScale: 0.05
+  _spawnCountMax: 5
+  PrizeLimitSize: 2.3
+  _defaultStatus:
+    SpawnCoolTime: 5
+    SpawnCount: 4
+    SpawnTime: 15
+    SpawnEndScale: 0.9
+    GrowthRate: 0
+    GrowthMaxSize: 1.5
+  CurrentStatus:
+    SpawnCoolTime: 0
+    SpawnCount: 0
+    SpawnTime: 0
+    SpawnEndScale: 0
+    GrowthRate: 0
+    GrowthMaxSize: 0

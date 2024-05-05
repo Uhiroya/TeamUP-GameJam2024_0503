@@ -4,10 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Drop
+public class DropPortManagerStatus
 {
-    [SerializeField, Header("栄養剤で成長完了にかかる時間")] public float ReinForceTime = 10f;
+    [SerializeField, Header("栄養剤クールタイム")] public float SupplementCoolTime;
+    [SerializeField, Header("栄養を吸収する時間")] public float ReinForceTime = 10f;
     [SerializeField, Header("与える成長量、+Size")] public float ReinForceAmount =  0.05f;
+    [SerializeField, Header("栄養剤の大きさ(複数ヒット可能にする)")] public float SupplementSize;
+    [SerializeField, Header("栄養剤の個数（シャワーみたいにする？）")] public float SupplementCount;
+    
+    
+
+    public DropPortManagerStatus(DropPortManagerStatus status)
+    {
+        SupplementCoolTime = status.SupplementCoolTime;
+        SupplementSize = status.SupplementSize;
+        SupplementCount = status.SupplementCount;
+        ReinForceTime = status.ReinForceTime;
+        ReinForceAmount = status.ReinForceAmount;
+    }
 }
 public class DropPortManager : SingletonMonoBehavior<DropPortManager>
 {
@@ -18,13 +32,22 @@ public class DropPortManager : SingletonMonoBehavior<DropPortManager>
     [SerializeField　,Header("垂らす液体")] private GameObject _dropPrefab;
     [SerializeField ,Header("移動スピード")] private float _moveSpeed;
     [SerializeField, Header("移動制限")] private Vector3 _limit;
-
-    [Header("現在の栄養剤によって変えたいデバック用")] 
-    [SerializeField] public Drop _drop;
+    
+    [SerializeField , Header("デフォルトのステータス")] public DropPortManagerStatus _defaultStatus;
+    
+    [Header("進行によって変更するデータ")]
+    [Header("現在のステータス")]
+    public DropPortManagerStatus CurrentStatus;
+    
+    protected override void OnAwake()
+    {
+        CurrentStatus = new DropPortManagerStatus(_defaultStatus);
+    }
+    
     public void WaterDrop()
     {
         var obj = Instantiate(_dropPrefab , _dropPort.position , Quaternion.identity);
-        obj.GetComponent<DropController>().SetDrop(_drop);
+        obj.GetComponent<DropController>().SetDrop(_defaultStatus);
     }
 
     public void MoveLaunchPort(Vector3 input)

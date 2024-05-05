@@ -7,12 +7,12 @@ namespace MyGame.Scripts.InGame.UI
 {
     public class UIManager : SingletonMonoBehavior<UIManager>
     {
-        [SerializeField] private Text SpawnCoolTimeText;
-        [SerializeField] private Text SpawnCountText;
-        [SerializeField] private Text SpawnTimeText;
-        [SerializeField] private Text SpawnEndScaleText;
-        [SerializeField] private Text GrowthRateText;
-        [SerializeField] private Text GrowthMaxSizeText;
+        // [SerializeField] private Text SpawnCoolTimeText;
+        // [SerializeField] private Text SpawnCountText;
+        // [SerializeField] private Text SpawnTimeText;
+        // [SerializeField] private Text SpawnEndScaleText;
+        // [SerializeField] private Text GrowthRateText;
+        // [SerializeField] private Text GrowthMaxSizeText;
         [Header("発芽クールタイムスライダー")]
         [SerializeField] private CanvasGroup CoolTimeSliderGroup;
         [SerializeField] private Slider CoolTimeSlider;
@@ -37,18 +37,18 @@ namespace MyGame.Scripts.InGame.UI
             _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnCoolTime).Subscribe(x =>
             {
                 _currentSpawnCoolTime = x;
-                SpawnCoolTimeText.text = x.ToString("0.0");
+                //SpawnCoolTimeText.text = x.ToString("0.0");
             });
-            _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnCount).Subscribe(x => SpawnCountText.text = x.ToString("0"));
+            //_prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnCount).Subscribe(x => SpawnCountText.text = x.ToString("0"));
             _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnTime).Subscribe(x =>
             {
                 _currentSpawnTime = x;
-                SpawnTimeText.text = x.ToString("0.0");
+                //SpawnTimeText.text = x.ToString("0.0");
             });
-            _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnEndScale).Subscribe(x => SpawnEndScaleText.text = x.ToString("0.0"));
-            _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.GrowthRate).Subscribe(x => GrowthRateText.text = x.ToString("0.00"));
-            _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.GrowthMaxSize).Subscribe(x => GrowthMaxSizeText.text = x.ToString("0.0"));
-            
+            // _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnEndScale).Subscribe(x => SpawnEndScaleText.text = x.ToString("0.0"));
+            // _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.GrowthRate).Subscribe(x => GrowthRateText.text = x.ToString("0.00"));
+            // _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.GrowthMaxSize).Subscribe(x => GrowthMaxSizeText.text = x.ToString("0.0"));
+            //
             _prizeManager.ObserveEveryValueChanged(x => x.SpawnTimer).Subscribe(x =>
             {
                 var remainingTime = (_currentSpawnCoolTime - x);
