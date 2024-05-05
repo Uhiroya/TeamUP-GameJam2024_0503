@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class DropController : MonoBehaviour
 {
-    private Drop _drop;
-    public float ReinForceAmount => _drop.ReinForceAmount;
-    public float ReinForceTime => _drop.ReinForceTime;
+    private DropPortManagerStatus _dropPortManagerStatus;
+    public float ReinForceAmount => _dropPortManagerStatus.ReinForceAmount;
+    public float ReinForceTime => _dropPortManagerStatus.ReinForceTime;
 
-    public void SetDrop(Drop drop)
+    public void SetDrop(DropPortManagerStatus dropPortManagerStatus)
     {
-        _drop = drop;
+        _dropPortManagerStatus = dropPortManagerStatus;
     }
 
     private void OnTriggerEnter(Collider other)

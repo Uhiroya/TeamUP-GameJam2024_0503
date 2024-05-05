@@ -11,12 +11,12 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     [SerializeField , Header("商品のゲットを判定するコライダー")] private Collider _getArea;
     [SerializeField, Header("初期コイン")] private int _defaultCoin;
 
-    private ReactiveProperty<int> _currentCoin = new();
+    public readonly ReactiveProperty<int> CurrentCoin = new();
     // Start is called before the first frame update
     void Start()
     {
-        _currentCoin.Value = _defaultCoin;
-        _currentCoin.Subscribe(x => _coinText.text = x.ToString());
+        CurrentCoin.Value = _defaultCoin;
+        CurrentCoin.Subscribe(x => _coinText.text = x.ToString());
         _getArea.OnTriggerEnterAsObservable().Subscribe(OnTouchGetArea);
     }
 
@@ -30,7 +30,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     {
         if (col.transform.TryGetComponent<PrizeController>(out var prize))
         {
-            _currentCoin.Value += prize.PrizeData.Coin;
+            CurrentCoin.Value += prize.PrizeData.Coin;
             Destroy(col.transform.parent.gameObject);
             return;
         }
