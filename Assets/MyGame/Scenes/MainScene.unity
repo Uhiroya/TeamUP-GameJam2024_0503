@@ -3863,7 +3863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1299c4705ce75a54da3424f3a440711a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bgmType: 1
+  _bgmType: 0
 --- !u!1 &902079454
 GameObject:
   m_ObjectHideFlags: 0
@@ -4005,10 +4005,10 @@ MonoBehaviour:
   _moveSpeed: 0.05
   _limit: {x: 3.4, y: 0, z: 5}
   _defaultStatus:
-    SupplementCoolTime: 0
-    ReinForceTime: 0
-    ReinForceAmount: 0
-    SupplementSize: 0
+    SupplementCoolTime: 1
+    ReinForceTime: 5
+    ReinForceAmount: 3
+    SupplementSize: 3
   CurrentStatus:
     SupplementCoolTime: 0
     ReinForceTime: 0
@@ -8266,6 +8266,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6923601006946099939, guid: 1f33c4353f925bc44b26f92c39ee18c8,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7056744821151181132, guid: ef9be3d9fa5079e41b0b7479d3f0905a,
+        type: 2}
     - target: {fileID: 7152878678899598869, guid: 1f33c4353f925bc44b26f92c39ee18c8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8316,6 +8322,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7222683767233002339, guid: 1f33c4353f925bc44b26f92c39ee18c8,
+        type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222683767233002339, guid: 1f33c4353f925bc44b26f92c39ee18c8,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4201646681600169526, guid: ef9be3d9fa5079e41b0b7479d3f0905a,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

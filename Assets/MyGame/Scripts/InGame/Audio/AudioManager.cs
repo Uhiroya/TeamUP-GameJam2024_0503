@@ -23,8 +23,8 @@ public enum SoundEffectType
 
 public enum BGMType
 {
-    InGame = 1,
-    InGame2 = 2,
+    InGame = 0,
+    InGame2 = 1,
 }
 public class AudioManager : SingletonMonoBehavior<AudioManager>
 {
