@@ -105,7 +105,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1.11
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8048254036043565330
 Rigidbody:
@@ -146,4 +146,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebb0c7c06678de47a5c9dab3c8707f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrowthAmount: 0.3
