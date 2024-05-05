@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa068857b9d9bbd40af3db7c6b34f4be
+guid: 0f2642d04c1a7de42b836b77fd254bd8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MapCoverMat
-    second: {fileID: 2100000, guid: 9b83633d006930e40a315148567b7e0e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MapMat
-    second: {fileID: 2100000, guid: fa0715f9156b4fc40b282428311c57cb, type: 2}
+      name: controllerMat
+    second: {fileID: 2100000, guid: 8591ac90ca44dde46bcc208d743ac7e9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
