@@ -7,7 +7,10 @@ using UnityEngine;
 
 public class PrizeController : MonoBehaviour
 {
-    public PrizeData PrizeData;
+    [SerializeField] private GameObject _purplekinoko;
+    [SerializeField] private GameObject _redkinoko;
+    [SerializeField] private GameObject _whitekinoko;
+    public int GetCoin = 300;
     
     private Transform _parent;
     private PrizeManager _prizeManager;
@@ -35,8 +38,25 @@ public class PrizeController : MonoBehaviour
         }
     }
     
-    public async UniTask Spawn()
+    public async UniTask Spawn(int kinokoType)
     {
+        float coinRate = 1;
+        switch (kinokoType)
+        {
+            case 0:
+                _whitekinoko.SetActive(true);
+                coinRate = 1;
+                break;
+            case 1:
+                _purplekinoko.SetActive(true);
+                coinRate = 1.5f;
+                break;
+            case 2:
+                _redkinoko.SetActive(true);
+                coinRate = 2f;
+                break;
+        }
+        GetCoin = (int)(GetCoin * coinRate);
         _parent = transform.parent;
         _prizeManager = PrizeManager.Instance;
         var rigidbody = GetComponentInChildren<Rigidbody>();

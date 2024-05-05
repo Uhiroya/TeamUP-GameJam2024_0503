@@ -6,10 +6,13 @@ using UnityEngine.InputSystem.OnScreen;
 
 public class InputProvider : SingletonMonoBehavior<InputProvider>
 {
+    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private DropPortManager _dropPortManager;
     [SerializeField] private RectTransform _joyStick;
     private Vector3 _defaultJoyStickPosition;
     private Vector3 _currentInput;
+
+    private bool _isJoyStickMove;
     void Start()
     {
         _defaultJoyStickPosition = _joyStick.position;
@@ -23,9 +26,25 @@ public class InputProvider : SingletonMonoBehavior<InputProvider>
         //Debug.Log(_currentInput);
         //Debug.Log(_joyStick.position);
         //Debug.Log(_defaultJoyStickPosition);
+        
         if (_currentInput.magnitude > 0.05f)
         {
+            if (!_isJoyStickMove)
+            {
+                _audioSource.Play();
+            }
+            
+            _isJoyStickMove = true;
             _dropPortManager.MoveLaunchPort(_currentInput);
+        }
+        else
+        {
+            if (_isJoyStickMove)
+            {
+                _audioSource.Stop();
+                AudioManager.Instance.PlaySe(SoundEffectType.機械停止);
+                _isJoyStickMove = false;
+            }
         }
     }
 }
