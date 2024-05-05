@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -21,7 +22,15 @@ public class CameraRotator : MonoBehaviour , IDragHandler
     {
         _defaultRotation = transform.rotation;
     }
-    
+
+    private async void OnDisable()
+    {
+        _newAngle = Vector2.zero;
+        await UniTask.Delay(2000);
+        transform.rotation = _defaultRotation;
+       
+    }
+
     void Update()
     {
         if (!_isDrag && EventSystem.current.IsPointerOverGameObject()) return;
