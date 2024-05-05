@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MyGame/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/WorkSpace/Coil/test.unity
+    guid: d85e05f2e6a01994a84352ad42f935bc
   m_configObjects: {}
