@@ -11,12 +11,14 @@ public class ShopUIController : MonoBehaviour
     [SerializeField] public Text ParameterText;
     [SerializeField] public Text PriceText;
     [SerializeField] private Button _buyButton;
+    [SerializeField] private Text _currentLevelText;
 
     private ShopManager _shopManager;
     void Start()
     {
         _shopNameText.text = Enum.GetName(typeof(ShopType), _shopType);
         _shopManager = ShopManager.Instance;
+        _currentLevelText.text = "レベル 1";
         ResourceManager.Instance.CurrentCoin.Subscribe(OnCoinChanged);
        
     }
@@ -32,7 +34,7 @@ public class ShopUIController : MonoBehaviour
     {
         if (_shopManager.CheckLevelUpAble(_shopType))
         {
-            _shopManager.LevelUp(_shopType);
+            _currentLevelText.text = $"レベル {_shopManager.LevelUp(_shopType)}";
         }
     }
     

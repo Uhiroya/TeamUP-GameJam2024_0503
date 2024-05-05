@@ -19,7 +19,7 @@ public enum ShopType
     栄養を吸収する時間 = 7,
     与える成長量 = 8,
     滴の大きさ = 9,
-    滴の個数 = 10,
+    //滴の個数 = 10,
 
 }
 
@@ -28,7 +28,7 @@ public class LevelUpInfo
 {
     [SerializeField, Header("レベルアップの上限")] public int LevelUpLimit = 5;
     [SerializeField, Header("レベルアップのベースの費用")] public int BasePrice = 100;
-    [SerializeField, Header("費用にかける補正値")] public int priceCompensation = 1;
+    [SerializeField, Header("費用にかける補正値")] public int PriceCompensation = 1;
     [SerializeField , Header("レベルアップの上昇値")] public float IncreasedValue = 1;
 }
 
@@ -45,7 +45,7 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
     {
         foreach (ShopType shopType in Enum.GetValues(typeof(ShopType)))
         {
-            _currentShopLevel.Add(shopType , -1);
+            _currentShopLevel.Add(shopType , 0);
         }
     }
 
@@ -54,9 +54,9 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
     /// </summary>
     public int LevelUpPrice(ShopType shopType)
     {
-        int nextLevel = _currentShopLevel[shopType] + 2;
+        int nextLevel = _currentShopLevel[shopType] + 1;
 
-        float price = _levelUpInfos[(int)shopType].priceCompensation * 
+        float price = _levelUpInfos[(int)shopType].PriceCompensation * 
                       _levelUpInfos[(int)shopType].BasePrice *
                       Mathf.Pow(_pricePower, nextLevel);
         return (int)price;
@@ -74,9 +74,8 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
     /// <summary>
     /// レベルアップ
     /// </summary>
-    public void LevelUp(ShopType shopType)
+    public int LevelUp(ShopType shopType)
     {
-        _currentShopLevel[shopType]++;
         var value = _levelUpInfos[(int)shopType].IncreasedValue;
         switch (shopType)
         {
@@ -104,9 +103,9 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
             case ShopType.滴の大きさ:
                 DropPortManager.Instance.CurrentStatus.SupplementSize += value;
                 break;
-            case ShopType.滴の個数:
-                DropPortManager.Instance.CurrentStatus.SupplementCount += value;
-                break;
+            // case ShopType.滴の個数:
+            //     DropPortManager.Instance.CurrentStatus.SupplementCount += value;
+            //     break;
             case ShopType.栄養を吸収する時間:
                 DropPortManager.Instance.CurrentStatus.ReinForceTime += value;
                 break;
@@ -114,8 +113,9 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
                 DropPortManager.Instance.CurrentStatus.ReinForceAmount += value;
                 break;
         }
-
+        _currentShopLevel[shopType]++;
         ResourceManager.Instance.CurrentCoin.Value -= LevelUpPrice(shopType);
+        return _currentShopLevel[shopType] + 1;
     }
 
     public string GetParameterByShopType(ShopType shopType)
@@ -147,9 +147,9 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
             case ShopType.滴の大きさ:
                 value = DropPortManager.Instance.CurrentStatus.SupplementSize.ToString("0.0"); 
                 break;
-            case ShopType.滴の個数:
-                value = DropPortManager.Instance.CurrentStatus.SupplementCount.ToString("0.0"); 
-                break;
+            // case ShopType.滴の個数:
+            //     value = DropPortManager.Instance.CurrentStatus.SupplementCount.ToString("0.0"); 
+            //     break;
             case ShopType.栄養を吸収する時間:
                 value = DropPortManager.Instance.CurrentStatus.ReinForceTime.ToString("0.0"); 
                 break;

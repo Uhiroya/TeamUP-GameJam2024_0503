@@ -10,7 +10,7 @@ public class DropPortManagerStatus
     [SerializeField, Header("栄養を吸収する時間")] public float ReinForceTime = 10f;
     [SerializeField, Header("与える成長量、+Size")] public float ReinForceAmount =  0.05f;
     [SerializeField, Header("栄養剤の大きさ(複数ヒット可能にする)")] public float SupplementSize;
-    [SerializeField, Header("栄養剤の個数（シャワーみたいにする？）")] public float SupplementCount;
+    //[SerializeField, Header("栄養剤の個数（シャワーみたいにする？）")] public float SupplementCount;
     
     
 
@@ -18,7 +18,7 @@ public class DropPortManagerStatus
     {
         SupplementCoolTime = status.SupplementCoolTime;
         SupplementSize = status.SupplementSize;
-        SupplementCount = status.SupplementCount;
+        //SupplementCount = status.SupplementCount;
         ReinForceTime = status.ReinForceTime;
         ReinForceAmount = status.ReinForceAmount;
     }

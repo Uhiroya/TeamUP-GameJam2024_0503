@@ -3,26 +3,29 @@ using UnityEngine;
 
 public enum SoundEffectType
 {
-    Fire = 0,
-    reload = 1,
-    explotion = 2,
-    reflectBullet = 3,
-    StartArea = 4,
-    SceneChange = 5,
-    Start = 6,
-    Sucseece = 7,
-    Fail = 8,
-    Fall = 9,
-    Landing = 10
+    コイン使用1 = 0,
+    コイン使用2 = 1,
+    コインゲット1 = 2,
+    コインゲット2 = 3,
+    ボタン1 = 4,
+    ボタン2 = 5,
+    ボタン3 = 6,
+    機械始動 = 7,
+    機械停止 = 8,
+    機械作動中 = 9,
+    水落下1 = 10,
+    水落下2 = 12,
+    水落下3 = 13,
+    水落下4 = 14,
+    水落下5 = 15,
+    水落下6 = 16,
 }
 
 public enum BGMType
 {
-    Title = 0,
     InGame = 1,
-    InGame2 = 2
+    InGame2 = 2,
 }
-
 public class AudioManager : SingletonMonoBehavior<AudioManager>
 {
     public AudioSource AudioSeSource;

@@ -19,12 +19,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
         CurrentCoin.Subscribe(x => _coinText.text = x.ToString());
         _getArea.OnTriggerEnterAsObservable().Subscribe(OnTouchGetArea);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     private void OnTouchGetArea(Collider col)
     {
