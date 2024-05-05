@@ -55,7 +55,10 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Server
+    - Standalone
+    - WebGL
   - serializedVersion: 3
     name: Balanced
     pixelLightCount: 1
@@ -166,7 +169,7 @@ QualitySettings:
     Nintendo Switch: 2
     PS4: 2
     PS5: 2
-    Server: 0
+    Server: 1
     Stadia: 2
     Standalone: 2
     WebGL: 1
