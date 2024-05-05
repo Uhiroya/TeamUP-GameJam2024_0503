@@ -25,7 +25,8 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     {
         if (col.transform.TryGetComponent<PrizeController>(out var prize))
         {
-            CurrentCoin.Value += prize.PrizeData.Coin;
+            AudioManager.Instance.PlaySe( SoundEffectType.コインゲット1);
+            CurrentCoin.Value += (int)(prize.GetCoin * prize.transform.parent.localScale.x);
             Destroy(col.transform.parent.gameObject);
             return;
         }

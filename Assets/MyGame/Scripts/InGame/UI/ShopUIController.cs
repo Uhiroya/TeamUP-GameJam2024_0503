@@ -34,6 +34,7 @@ public class ShopUIController : MonoBehaviour
     {
         if (_shopManager.CheckLevelUpAble(_shopType))
         {
+            AudioManager.Instance.PlaySe(SoundEffectType.コイン使用1);
             _currentLevelText.text = $"レベル {_shopManager.LevelUp(_shopType)}";
         }
     }

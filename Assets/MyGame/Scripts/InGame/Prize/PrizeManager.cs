@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 /// <summary>
 /// ここでは 発芽　→ Spawn
 /// 成長 → Growth
@@ -90,7 +92,7 @@ public class PrizeManager : SingletonMonoBehavior<PrizeManager>
             var spawnPosX = _spawnPositionLeft.position.x + interval;
 
             var obj = Instantiate(_prize, new Vector3(spawnPosX, leftSidePos.y, leftSidePos.z), Quaternion.identity, null);
-            tasks.Add(obj.GetComponentInChildren<PrizeController>().Spawn());
+            tasks.Add(obj.GetComponentInChildren<PrizeController>().Spawn(Random.Range(0 , 3)));
         }
         await tasks;
         _isSpawn = false;
