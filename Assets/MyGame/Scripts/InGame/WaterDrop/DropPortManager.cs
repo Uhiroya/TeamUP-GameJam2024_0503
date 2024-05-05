@@ -64,7 +64,7 @@ public class DropPortManager : SingletonMonoBehavior<DropPortManager>
         AudioManager.Instance.PlaySe(SoundEffectType.ボタン2);
         ButtonAnimation.Instance.OnButtonClick();
         var obj = Instantiate(_dropPrefab , _dropPort.position , Quaternion.identity);
-        obj.GetComponent<DropController>().SetDrop(_defaultStatus);
+        obj.transform.localScale *= CurrentStatus.SupplementSize; 
         _coolTime = 0f;
     }
 
