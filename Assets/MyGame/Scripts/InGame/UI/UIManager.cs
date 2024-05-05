@@ -1,18 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using SoulRunProject.Common;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyGame.Scripts.InGame.UI
 {
+    enum LevelUpType
+    {
+        培養強化 = 0,
+        成長室強化 = 1,
+        栄養剤強化 = 2,
+    }
+
+    [Serializable]
+    public class LevelUpCanvas
+    {
+        public Text NameText;
+        public CanvasGroup LevelUpCanvasGroup;
+    }
     public class UIManager : SingletonMonoBehavior<UIManager>
     {
-        // [SerializeField] private Text SpawnCoolTimeText;
-        // [SerializeField] private Text SpawnCountText;
-        // [SerializeField] private Text SpawnTimeText;
-        // [SerializeField] private Text SpawnEndScaleText;
-        // [SerializeField] private Text GrowthRateText;
-        // [SerializeField] private Text GrowthMaxSizeText;
+        [SerializeField , EnumDrawer(typeof(LevelUpType))] private List<LevelUpCanvas> _levelUpCanvasList;
         [Header("発芽クールタイムスライダー")]
         [SerializeField] private CanvasGroup CoolTimeSliderGroup;
         [SerializeField] private Slider CoolTimeSlider;
@@ -28,11 +38,21 @@ namespace MyGame.Scripts.InGame.UI
 
         float _currentSpawnCoolTime;
         float _currentSpawnTime;
+
+
+        
+        
         private void Start()
         {
             _resourceManager = ResourceManager.Instance;
             _prizeManager = PrizeManager.Instance;
             _dropPortManager = DropPortManager.Instance;
+
+            for (int i = 0; i < _levelUpCanvasList.Count; i++)
+            {
+                _levelUpCanvasList[i].NameText.text = Enum.GetName(typeof(LevelUpType), i);
+            }
+
 
             _prizeManager.CurrentStatus.ObserveEveryValueChanged(x => x.SpawnCoolTime).Subscribe(x =>
             {
@@ -73,5 +93,38 @@ namespace MyGame.Scripts.InGame.UI
                 }
             });
         }
+
+        private int _currentCanvasIndex = 0;
+        
+        public void LevelUpCanvasSwitchLeft()
+        {
+            if (_currentCanvasIndex == 0)
+            {
+                _currentCanvasIndex = _levelUpCanvasList.Count - 1;
+            }
+            else
+            {
+                _currentCanvasIndex--;
+            }
+
+            _levelUpCanvasList.ForEach(x => x.LevelUpCanvasGroup.gameObject.SetActive(false));
+            _levelUpCanvasList[_currentCanvasIndex].LevelUpCanvasGroup.gameObject.SetActive(true);
+
+        }
+        public void LevelUpCanvasSwitchRight()
+        {
+            if (_currentCanvasIndex == _levelUpCanvasList.Count - 1)
+            {
+                _currentCanvasIndex = 0;
+            }
+            else
+            {
+                _currentCanvasIndex++;
+            }
+
+            _levelUpCanvasList.ForEach(x => x.LevelUpCanvasGroup.gameObject.SetActive(false));
+            _levelUpCanvasList[_currentCanvasIndex].LevelUpCanvasGroup.gameObject.SetActive(true);
+        }
+        
     }
 }
