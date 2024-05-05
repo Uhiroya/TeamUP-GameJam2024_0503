@@ -43,11 +43,29 @@ public class DropPortManager : SingletonMonoBehavior<DropPortManager>
     {
         CurrentStatus = new DropPortManagerStatus(_defaultStatus);
     }
-    
+
+    private float _coolTime;
+    private void Update()
+    {
+        if (_coolTime < CurrentStatus.SupplementCoolTime)
+        {
+            _coolTime += Time.deltaTime;
+            if (_coolTime > CurrentStatus.SupplementCoolTime)
+            {
+                AudioManager.Instance.PlaySe(SoundEffectType.ボタン1);
+                ButtonAnimation.Instance.OnButtonReset();
+            }
+        }
+    }
+
     public void WaterDrop()
     {
+        if(_coolTime < CurrentStatus.SupplementCoolTime) return;
+        AudioManager.Instance.PlaySe(SoundEffectType.ボタン2);
+        ButtonAnimation.Instance.OnButtonClick();
         var obj = Instantiate(_dropPrefab , _dropPort.position , Quaternion.identity);
         obj.GetComponent<DropController>().SetDrop(_defaultStatus);
+        _coolTime = 0f;
     }
 
     public void MoveLaunchPort(Vector3 input)

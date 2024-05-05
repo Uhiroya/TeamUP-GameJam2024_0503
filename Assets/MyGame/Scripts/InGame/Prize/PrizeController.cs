@@ -58,7 +58,7 @@ public class PrizeController : MonoBehaviour
     private async void OnTriggerEnter(Collider other)
     {
 
-        if (!_isSpawn) return;
+        if (_isSpawn) return;
         if(other.gameObject.TryGetComponent<DropController>(out var drop))
         {
             _isGrowth = true;
