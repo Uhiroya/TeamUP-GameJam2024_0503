@@ -51,14 +51,14 @@ MonoBehaviour:
   SpawnUpPower: 0.5
   SpawnStartScale: 0.05
   _spawnCountMax: 5
-  PrizeLimitSize: 2.3
+  PrizeLimitSize: 2.5
   _defaultStatus:
     SpawnCoolTime: 5
     SpawnCount: 2
     SpawnTime: 15
     SpawnEndScale: 0.9
     GrowthRate: 0
-    GrowthMaxSize: 1.5
+    GrowthMaxSize: 2.5
   CurrentStatus:
     SpawnCoolTime: 0
     SpawnCount: 2

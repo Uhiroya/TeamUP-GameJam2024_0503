@@ -72,17 +72,17 @@ MonoBehaviour:
   - LevelUpLimit: 6
     BasePrice: 50
     PriceCompensation: 2
-    IncreasedValue: 0.1
+    IncreasedValue: -0.5
   - LevelUpLimit: 6
     BasePrice: 100
     PriceCompensation: 1
-    IncreasedValue: 0.1
+    IncreasedValue: -1
   - LevelUpLimit: 6
     BasePrice: 500
     PriceCompensation: 2
     IncreasedValue: 0.1
   - LevelUpLimit: 6
-    BasePrice: 100
+    BasePrice: 300
     PriceCompensation: 2
     IncreasedValue: 0.2
   _pricePower: 1.5

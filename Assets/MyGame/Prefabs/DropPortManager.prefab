@@ -50,12 +50,13 @@ MonoBehaviour:
   _dropPrefab: {fileID: 2793929964162481575, guid: f661396d28468ed4091877cb39d9e1f0,
     type: 3}
   _moveSpeed: 0.05
-  _limit: {x: 3.4, y: 0, z: 5}
+  _limitPlusVector: {x: 3.5, y: 0, z: 11}
+  _limitMinusVector: {x: -3, y: 0, z: 0}
   _defaultStatus:
-    SupplementCoolTime: 0
-    ReinForceTime: 0
-    ReinForceAmount: 0
-    SupplementSize: 0
+    SupplementCoolTime: 4
+    ReinForceTime: 8
+    ReinForceAmount: 0.2
+    SupplementSize: 1.94
   CurrentStatus:
     SupplementCoolTime: 0
     ReinForceTime: 0
