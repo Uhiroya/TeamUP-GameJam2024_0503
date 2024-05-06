@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -7,6 +9,7 @@ using UnityEngine.UI;
 
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
+    [SerializeField, Header("景品が落ちて獲得するまでの時間")] private float _getTime = 1.5f;
     [SerializeField, Header("現在のコインを表示するテキスト")] private Text _coinText;
     [SerializeField , Header("商品のゲットを判定するコライダー")] private Collider _getArea;
     [SerializeField, Header("初期コイン")] private int _defaultCoin;
@@ -25,12 +28,15 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     {
         if (col.transform.TryGetComponent<PrizeController>(out var prize))
         {
-            AudioManager.Instance.PlaySe( SoundEffectType.コインゲット1);
-            CurrentCoin.Value += (int)(prize.GetCoin * prize.transform.parent.localScale.x);
-            
-            PrizeManager.Instance.ReleasePrize(col.transform.parent.gameObject);
-            return;
+            _ = GetPrize(prize);
         }
-        Destroy(col.gameObject);
+    }
+
+    private async UniTaskVoid GetPrize(PrizeController prize)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(_getTime));
+        AudioManager.Instance.PlaySe( SoundEffectType.コインゲット1);
+        CurrentCoin.Value += (int)(prize.GetCoin * prize.transform.parent.localScale.x);
+        PrizeManager.Instance.ReleasePrize(prize.transform.parent.gameObject);
     }
 }

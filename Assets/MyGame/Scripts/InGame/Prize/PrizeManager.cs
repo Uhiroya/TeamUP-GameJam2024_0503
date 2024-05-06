@@ -36,9 +36,6 @@ public class PrizeManager : SingletonMonoBehavior<PrizeManager>
     [SerializeField, Header("スポーンしながら前進させる力")] public float SpawnFrontPower = 1f;
     [SerializeField, Header("スポーンしながら上に動かす力")] public float SpawnUpPower = 1f;
     [SerializeField, Header("初期スポーン開始サイズ")] public float SpawnStartScale = 0.05f;
-    
-    [SerializeField , Header("スポーン最大個数")] private int _spawnCountMax;
-    [SerializeField, Header("育成上限サイズ")] public float PrizeLimitSize = 1.6f;
     [SerializeField, Header("デフォルトのステータス")] private PrizeManagerStatus _defaultStatus;
     
     [Header("進行によって変更するデータ")]
