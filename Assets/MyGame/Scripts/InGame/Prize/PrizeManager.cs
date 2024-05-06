@@ -4,13 +4,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
-/// <summary>
-/// ここでは 発芽　→ Spawn
-/// 成長 → Growth
-/// 栄養剤での成長 → ReinForce
-/// とする
-/// </summary>
+using UnityEngine.Pool;
 [Serializable]
 public class PrizeManagerStatus
 {
@@ -34,16 +28,14 @@ public class PrizeManagerStatus
 }
 public class PrizeManager : SingletonMonoBehavior<PrizeManager>
 {
-    [Header("進行によって変更されないデータ")]
+    [Header("進行によって変更されないデータ")] 
+    [SerializeField, Header("景品の初期位置")] private Transform _defaultPrizes;
     [SerializeField , Header("スポーンする景品")] private GameObject _prize;
     [SerializeField , Header("スポーン範囲 左 , X-方向")] private Transform _spawnPositionLeft;
     [SerializeField , Header("スポーン範囲 右　X+方向")] private Transform _spawnPositionRight;
     [SerializeField, Header("スポーンしながら前進させる力")] public float SpawnFrontPower = 1f;
     [SerializeField, Header("スポーンしながら上に動かす力")] public float SpawnUpPower = 1f;
     [SerializeField, Header("初期スポーン開始サイズ")] public float SpawnStartScale = 0.05f;
-    
-    [SerializeField , Header("スポーン最大個数")] private int _spawnCountMax;
-    [SerializeField, Header("育成上限サイズ")] public float PrizeLimitSize = 1.6f;
     [SerializeField, Header("デフォルトのステータス")] private PrizeManagerStatus _defaultStatus;
     
     [Header("進行によって変更するデータ")]
@@ -60,6 +52,34 @@ public class PrizeManager : SingletonMonoBehavior<PrizeManager>
         CurrentStatus = new PrizeManagerStatus(_defaultStatus);
     }
 
+    private ObjectPool<GameObject> _prizePool;
+    void Start()
+    {
+        _prizePool = new ObjectPool<GameObject>
+        (
+            createFunc: () => Instantiate(_prize),
+            actionOnGet: target => target.SetActive(true),
+            actionOnRelease: target => target.SetActive(false),
+            actionOnDestroy: Destroy,
+            collectionCheck: false,
+            defaultCapacity: 60,
+            maxSize: 100
+        );
+
+        foreach (Transform defaultPrize in _defaultPrizes)
+        {
+            var obj = _prizePool.Get();
+            obj.transform.position = defaultPrize.position;
+            obj.transform.localScale = defaultPrize.localScale;
+            //シーン上の景品はルートの回転を触ってしまっているため、rotationを子オブジェクトに移動する。
+            foreach (Transform child in obj.transform)
+            {
+                child.transform.rotation = defaultPrize.rotation;
+            }
+            defaultPrize.transform.rotation = Quaternion.identity;
+            obj.GetComponentInChildren<PrizeController>().SetKinokoHead(Random.Range(0 , 3));
+        }
+    }
     private void Update()
     {
         if (!_isSpawn)
@@ -78,6 +98,11 @@ public class PrizeManager : SingletonMonoBehavior<PrizeManager>
         }
     }
     
+    public void ReleasePrize(GameObject obj)
+    {
+        _prizePool.Release(obj);
+    }
+    
     public async void Spawn()
     {
         if (_isSpawn) return;
@@ -90,8 +115,8 @@ public class PrizeManager : SingletonMonoBehavior<PrizeManager>
         {
             var interval = spawnXLength / (CurrentStatus.SpawnCount + 1) * (i+1);
             var spawnPosX = _spawnPositionLeft.position.x + interval;
-
-            var obj = Instantiate(_prize, new Vector3(spawnPosX, leftSidePos.y, leftSidePos.z), Quaternion.identity, null);
+            var obj = _prizePool.Get();
+            obj.transform.position = new Vector3(spawnPosX, leftSidePos.y, leftSidePos.z);
             tasks.Add(obj.GetComponentInChildren<PrizeController>().Spawn(Random.Range(0 , 3)));
         }
         await tasks;

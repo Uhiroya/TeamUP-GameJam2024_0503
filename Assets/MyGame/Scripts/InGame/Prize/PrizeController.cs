@@ -19,26 +19,44 @@ public class PrizeController : MonoBehaviour
 
     private float _growthTime;
 
+    private int _defaultGetCoin;
     // Instantiateで呼ぶとUpdate回る前にStart呼ばれない
     private void Start()
     {
         _parent = transform.parent;
         _prizeManager = PrizeManager.Instance;
+        _defaultGetCoin = GetCoin;
     }
 
     private void Update()
     {
-        if (_isSpawn)
+        Growing(Time.deltaTime);
+    }
+
+    private void OnDisable()
+    {
+        GetCoin = _defaultGetCoin;
+
+    }
+
+    /// <summary>
+    /// 自動成長
+    /// </summary>
+    public void Growing(float deltaTime)
+    {
+        if (!_isSpawn)
         {
-            var newSize = _parent.localScale.x + Time.deltaTime * _prizeManager.CurrentStatus.GrowthRate;
+            var newSize = _parent.localScale.x + deltaTime * _prizeManager.CurrentStatus.GrowthRate;
             if (newSize < _prizeManager.CurrentStatus.GrowthMaxSize)
             {
                 _parent.localScale = Vector3.one * newSize;
             }
         }
     }
-    
-    public async UniTask Spawn(int kinokoType)
+
+
+
+    public void SetKinokoHead(int kinokoType)
     {
         float coinRate = 1;
         switch (kinokoType)
@@ -57,17 +75,22 @@ public class PrizeController : MonoBehaviour
                 break;
         }
         GetCoin = (int)(GetCoin * coinRate);
+    }
+    
+    public async UniTask Spawn(int kinokoType)
+    {
+        SetKinokoHead(kinokoType);
+        transform.localRotation = Quaternion.identity;
+        transform.localPosition = Vector3.zero;
         _parent = transform.parent;
-        _prizeManager = PrizeManager.Instance;
         var rigidbody = GetComponentInChildren<Rigidbody>();
         _isSpawn = true;
         rigidbody.isKinematic = true;
-        _parent.localScale = Vector3.one * _prizeManager.SpawnStartScale;
-
+        _parent.localScale = Vector3.one * PrizeManager.Instance.SpawnStartScale;
         var sequence = DOTween.Sequence();
-        sequence.Append(_parent.DOScale(Vector3.one *  _prizeManager.CurrentStatus.SpawnEndScale, _prizeManager.CurrentStatus.SpawnTime));
-        sequence.Join(_parent.DOBlendableMoveBy(Vector3.back * _prizeManager.SpawnFrontPower, _prizeManager.CurrentStatus.SpawnTime));
-        sequence.Join(_parent.DOBlendableMoveBy(Vector3.up * _prizeManager.SpawnUpPower, _prizeManager.CurrentStatus.SpawnTime));
+        sequence.Append(_parent.DOScale(Vector3.one *  PrizeManager.Instance.CurrentStatus.SpawnEndScale, PrizeManager.Instance.CurrentStatus.SpawnTime));
+        sequence.Join(_parent.DOBlendableMoveBy(Vector3.back * PrizeManager.Instance.SpawnFrontPower, PrizeManager.Instance.CurrentStatus.SpawnTime));
+        sequence.Join(_parent.DOBlendableMoveBy(Vector3.up * PrizeManager.Instance.SpawnUpPower, PrizeManager.Instance.CurrentStatus.SpawnTime));
 
         await sequence;
 

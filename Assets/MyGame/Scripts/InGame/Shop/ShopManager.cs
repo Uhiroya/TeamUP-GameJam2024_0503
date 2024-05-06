@@ -4,21 +4,6 @@ using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
 
-public enum ShopType2
-{
-    はえやすさ= 0,
-    はえるりょう = 1,
-     はえるはやさ= 2 ,
-    しょきサイズ = 3,
-
-    せいちょう = 4 ,
-    さいだいサイズ = 5,
-
-    そくど = 6,
-    ききやすさ = 7,
-    つよさ= 8,
-    おおきさ = 9,
-} 
 public enum ShopType
 {
     はえやすさ = 0,
@@ -68,7 +53,6 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
     public int LevelUpPrice(ShopType shopType)
     {
         int nextLevel = _currentShopLevel[shopType] + 1;
-
         float price = _levelUpInfos[(int)shopType].PriceCompensation * 
                       _levelUpInfos[(int)shopType].BasePrice *
                       Mathf.Pow(_pricePower, nextLevel);
@@ -126,8 +110,12 @@ public class ShopManager : SingletonMonoBehavior<ShopManager>
                 DropPortManager.Instance.CurrentStatus.ReinForceAmount += value;
                 break;
         }
-        ResourceManager.Instance.CurrentCoin.Value -= LevelUpPrice(shopType);
+        var cost = LevelUpPrice(shopType);
+        //クレジット更新とUI更新を同タイミングで行っているため
+        //この処理を交換したらレベルアップのUIコスト表記がが一つ前のレベルアップコストになってしまう。
         _currentShopLevel[shopType]++;
+        ResourceManager.Instance.CurrentCoin.Value -= cost;
+        
         return _currentShopLevel[shopType] + 1;
     }
 
