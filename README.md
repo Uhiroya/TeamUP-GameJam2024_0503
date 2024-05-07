@@ -1,4 +1,4 @@
-# MyTemplete_UnityURP_2022.2.5.f1
+# TeamUP-GameJam2024_0503
 
 ## 概要
 
