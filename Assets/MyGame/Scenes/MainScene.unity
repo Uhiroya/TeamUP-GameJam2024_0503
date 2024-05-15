@@ -9811,6 +9811,11 @@ PrefabInstance:
       propertyPath: _levelUpInfos.Array.data[5].IncreasedValue
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 4207894030976671519, guid: e3717a3227a117a44b51e0bec4fb30ae,
+        type: 3}
+      propertyPath: _levelUpInfos.Array.data[7].IncreasedValue
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6960380277464425770, guid: e3717a3227a117a44b51e0bec4fb30ae,
         type: 3}
       propertyPath: m_Name
@@ -10091,6 +10096,11 @@ PrefabInstance:
       propertyPath: _launchRail
       value: 
       objectReference: {fileID: 1365453268}
+    - target: {fileID: 4640121618825443032, guid: 205bb34238445f54884303ce153dfd68,
+        type: 3}
+      propertyPath: _defaultStatus.ReinForceTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7411258837756564962, guid: 205bb34238445f54884303ce153dfd68,
         type: 3}
       propertyPath: m_LocalPosition.x
