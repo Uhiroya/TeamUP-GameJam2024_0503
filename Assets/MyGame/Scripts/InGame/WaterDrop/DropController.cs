@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DropController : MonoBehaviour
 {
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Floor"))

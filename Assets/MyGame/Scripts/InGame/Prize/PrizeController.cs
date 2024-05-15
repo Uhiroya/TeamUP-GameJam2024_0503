@@ -10,6 +10,9 @@ public class PrizeController : MonoBehaviour
     [SerializeField] private GameObject _purplekinoko;
     [SerializeField] private GameObject _redkinoko;
     [SerializeField] private GameObject _whitekinoko;
+    [SerializeField] private Transform _hitEffectTransform;
+    [SerializeField] private GameObject _hitEffectPrefab;
+    [SerializeField] private ParticleSystem _growEffect;
     public int GetCoin = 300;
     
     private Transform _parent;
@@ -23,6 +26,7 @@ public class PrizeController : MonoBehaviour
     // Instantiateで呼ぶとUpdate回る前にStart呼ばれない
     private void Start()
     {
+        _growEffect.Pause();
         _parent = transform.parent;
         _prizeManager = PrizeManager.Instance;
         _defaultGetCoin = GetCoin;
@@ -36,7 +40,7 @@ public class PrizeController : MonoBehaviour
     private void OnDisable()
     {
         GetCoin = _defaultGetCoin;
-
+        _growEffect.Pause();
     }
 
     /// <summary>
@@ -104,10 +108,16 @@ public class PrizeController : MonoBehaviour
         if (_isSpawn) return;
         if(other.gameObject.TryGetComponent<DropController>(out var drop))
         {
+            var hitEffect = Instantiate(_hitEffectPrefab, _hitEffectTransform);
+            Destroy(hitEffect,3);
             _isGrowth = true;
             if (_parent.localScale.x + DropPortManager.Instance.CurrentStatus.ReinForceAmount < _prizeManager.CurrentStatus.GrowthMaxSize)
             {
+                _growEffect.gameObject.SetActive(true);
+                _growEffect.Play();
                 await _parent.DOScale(_parent.localScale + Vector3.one * DropPortManager.Instance.CurrentStatus.ReinForceAmount, DropPortManager.Instance.CurrentStatus.ReinForceTime);
+                _growEffect.Pause();
+                _growEffect.gameObject.SetActive(false);
             }
             else
             {
