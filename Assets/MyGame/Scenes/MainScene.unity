@@ -10099,7 +10099,7 @@ PrefabInstance:
     - target: {fileID: 4640121618825443032, guid: 205bb34238445f54884303ce153dfd68,
         type: 3}
       propertyPath: _defaultStatus.ReinForceTime
-      value: 2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7411258837756564962, guid: 205bb34238445f54884303ce153dfd68,
         type: 3}
